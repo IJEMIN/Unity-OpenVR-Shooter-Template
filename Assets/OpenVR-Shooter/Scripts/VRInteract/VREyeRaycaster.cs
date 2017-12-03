@@ -9,11 +9,10 @@ public class VREyeRaycaster : MonoBehaviour
 
 	[SerializeField] private Transform m_Camera;
 	[SerializeField] public LayerMask m_ExclusionLayers;           // Layers to exclude from the raycast.
-	[SerializeField] private Reticle m_Reticle;                     // The reticle, if applicable.
     [SerializeField] private float m_RayLength = 500f; 
 	[SerializeField] private bool m_ShowDebugRay;                   // Optionally show the debug ray.	[SerializeField] private float m_RayLength = 500f;              // How far into the scene the ray is cast.
 
-	
+
 	private VRInteratable m_CurrentInteractible;                //The current interactive item
 	private VRInteratable m_LastInteractible;                   //The last interactive item
 
@@ -21,6 +20,16 @@ public class VREyeRaycaster : MonoBehaviour
 	void Update()
 	{
 		EyeRaycast();
+
+		if(VRInput.GetTriggerButton(VRInput.Hand.Right))
+		{
+			// Xbox 나 VR 컨트롤러의 'A' 키를 누르면 인터렉터블 오브젝트의 OnClick 이벤트를 발동시킴
+			// TODO: VR 컨트롤러의 트리거 버튼 클릭으로 대체
+			if(m_CurrentInteractible && Input.GetButtonDown("Fire1"))
+			{
+				m_CurrentInteractible.OnClick();
+			}
+		}
 	}
 
 
@@ -50,22 +59,18 @@ public class VREyeRaycaster : MonoBehaviour
 				m_LastInteractible = interactible;
 			}
 
-			
-			// Something was hit, set at the hit position.
-			if (m_Reticle)
-				m_Reticle.SetPosition(hit);
-
 			if (OnRaycasthit != null)
 				OnRaycasthit(hit);
 		}
 		else
 		{
+			if(m_LastInteractible && m_CurrentInteractible)
+			{
+				m_LastInteractible.OnVREyeExit();
+			}
+
 			m_LastInteractible = null;
 			m_CurrentInteractible = null;
-
-			// Position the reticle at default distance.
-			if (m_Reticle)
-				m_Reticle.SetPosition();
 		}
 	}
 }

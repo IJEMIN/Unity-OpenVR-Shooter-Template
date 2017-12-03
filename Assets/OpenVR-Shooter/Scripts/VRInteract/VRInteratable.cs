@@ -6,18 +6,26 @@ using UnityEngine.Events;
 public class VRInteratable : MonoBehaviour {
 
 	[SerializeField]
-	private UnityEvent onVRTriggerClick;
+	private UnityEvent onClick;
 
 	[SerializeField]
 	private UnityEvent onVREyeEnter;
 
-	public void OnTriggerClick()
+	[SerializeField]
+	private UnityEvent onVREyeExit;
+
+	public void OnClick()
 	{
-		onVRTriggerClick.Invoke();
+		onClick.Invoke();
 	}
 
 	public void OnVREyeEnter()
 	{
 		onVREyeEnter.Invoke();
+	}
+
+	public void OnVREyeExit()
+	{
+		onVREyeExit.Invoke();
 	}
 }

@@ -95,4 +95,6 @@ public static class VRInput {
 		
 		return false;
 	}
+
+	//TODO GetTriggerDown 과 GetTriggerUp 만들기
 }

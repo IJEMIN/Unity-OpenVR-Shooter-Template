@@ -118,8 +118,7 @@ public class Gun : MonoBehaviour
 			// 찍어내기(찍어낼 피탄효과 원본, 위치, 회전)
 			// Quaternion.LookRotation(방향) => 해당 방향을 보는 쪽으로 회전을 만들어줌
 			// hit.normal = 충돌각 (정확하게는 충돌한 표면이 바라보는 방향)
-			GameObject impactInstance
-				= Instantiate(impactPrefab, hit.point, Quaternion.LookRotation(hit.normal));
+			Instantiate(impactPrefab, hit.point, Quaternion.LookRotation(hit.normal));
 
 			// 만약 상대방이 IDamageable 로서 가져와진다면...
 			// 상대방이 무조건 IDamageable 이 강제하는
