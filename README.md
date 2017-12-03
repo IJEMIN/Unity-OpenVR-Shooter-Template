@@ -11,6 +11,11 @@ Oculus VR 과 HTC Vive (Steam VR) 에 모두 대응합니다.
 상세한 설명 주석 달아놨음.
 이것 기반으로 만듬<br>https://github.com/IJEMIN/Unity-OpenVR-Power-Blade-Example
 
+----------
+## 다운로드
+최신 버전의 패키지를 [releases](//github.com/IJEMIN/Unity-OpenVR-Shooter-Template/releases) 에서 받아주세요.<br>저장소에는 현재 작성중인 미완성의 코드가 포함되 있을 수 있습니다.
+
+
 ## 제공하는 기능
 코드 동작이 내부에서 간결하게 완결되어 있어, 드래그-드롭으로 쓸 수 있습니다.
 
@@ -123,9 +128,14 @@ VR 컨트롤러의 입력을 InputManager 에서 제어하는 방법은 VRInputC
 
 
 
-# 궁금한 점은 이곳으로.
+# 크레딧
 I_Jemin (i_jemin@hotmail.com, ijemin.com)
 
+# 기타
+유니티 애셋 스토어에서 제공되는 무료 애셋을 사용하였습니다.<br>
+이 프로젝트는 교육용입니다.
+
+상업적 용도로 해당 애셋들을 사용하지 않았으며, 라이센스 문제가 있는 모델과 음원은 추후 삭제하거나 대체할 것입니다.
 
 
 
