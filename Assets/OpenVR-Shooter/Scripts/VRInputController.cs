@@ -44,7 +44,7 @@ public class VRInputController : MonoBehaviour {
 	
 
 	// 입력 체크..
-	void Update()
+	protected virtual void Update()
 	{
 		// indexTriggerName - 검지용 트리거를 누른 순간
 		if(Input.GetAxisRaw(indexTriggerName) >= 0.1f)
@@ -69,14 +69,14 @@ public class VRInputController : MonoBehaviour {
 
 	// 검지 트리거 버튼을 눌렀을때 발동될 함수 입니다.
 	// 이것을 상속받아 오버라이드 하세요.
-	public virtual void OnIndexTriggerButtonDown()
+	protected virtual void OnIndexTriggerButtonDown()
 	{
 		
 	}
 
 	// 쥐는 트리거 버튼을 눌렀을때 발동될 함수 입니다.
 	// 이것을 상속받아 오버라이드 하세요.
-	public virtual void OnGripTriggerButtonDown()
+	protected virtual void OnGripTriggerButtonDown()
 	{
 		
 	}

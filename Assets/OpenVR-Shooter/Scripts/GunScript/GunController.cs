@@ -10,12 +10,12 @@ public class GunController : VRInputController {
 
 	public Gun gun;
 
-	public override void OnIndexTriggerButtonDown()
+	protected override void OnIndexTriggerButtonDown()
 	{
 		gun.Fire();
 	}
 
-	public override void OnGripTriggerButtonDown()
+	protected override void OnGripTriggerButtonDown()
 	{
 		gun.Reload();
 	}
