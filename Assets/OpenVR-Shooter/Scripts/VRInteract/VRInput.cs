@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR;
 
-// VR 컨트롤러의 인풋을 받아, 해당 함수를 발동하는 스크립트
-// VR 컨트롤러에 대응해야 하는 클래스는, 이 스크립트를 상속받아서
-// 단 두개의 함수 OnGripTriggerButtonDown 와 OnIndexTriggerButtonDown 만 오버라이드 하면 된다.
-public class VRInputController : MonoBehaviour {
-	
+// VR 컨트롤러의 입력을 GetVRTriggerButton 과 GetVRGripButton 로 제공하는 클래스
+public static class VRInput {
+
+	public enum Hand {Left,Right};
+
+
 	/*
 	유니티는 OpenVR API 를 내장하고 있다.
 	이것으로 VR 입력을 InputManager 에서 조이스틱 입력으로서 받을 수 있다.
@@ -37,47 +39,60 @@ public class VRInputController : MonoBehaviour {
 	 */
 
 
+	//왼손
 	// 검지 손가락 트리거에 대응되는 입력 세팅 이름
-	public string indexTriggerName;
+	static string leftIndexTriggerName = "LeftIndexTrigger";
 	// 쥐는 트리거에 대응되는 입력 세팅 이름
-	public string gripTriggerName;
+	static string leftGripTriggerName = "LeftGripTrigger";
 	
 
-	// 입력 체크..
-	protected virtual void Update()
+
+	// 오른손
+	// 검지 손가락 트리거에 대응되는 입력 세팅 이름
+	static string rightIndexTriggerName = "RightIndexTrigger";
+	// 쥐는 트리거에 대응되는 입력 세팅 이름
+	static string rightGripTriggerName = "RightGripTrigger";
+	
+
+	// 편의를 위해 정적 함수로 입력을 제공
+	public static bool GetTriggerButton(Hand hand)
 	{
-		// indexTriggerName - 검지용 트리거를 누른 순간
-		if(Input.GetAxisRaw(indexTriggerName) >= 0.1f)
+		if(hand == Hand.Right)
 		{
-			// 여기 내용을 원하는 처리로 교체하면 다른 게임에 적용 가능
-
-			// 검지손가락 트리거용 함수 발동
-			OnIndexTriggerButtonDown();
-			Debug.Log("방아쇠를 누름");
+			if(Input.GetAxisRaw(rightIndexTriggerName) >= 0.1f)
+			{
+				return true;
+			}
 		}
-		
-		// gripTriggerName - 쥐는 트리거를 누른 순간
-		if(Input.GetAxisRaw(gripTriggerName) >= 0.1f)
+		else if(hand == Hand.Left)
 		{
-			// 여기 내용을 원하는 처리로 교체하면 다른 게임에 적용 가능
-
-			// 쥐는 트리거용 함수 발동
-			OnGripTriggerButtonDown();
-			Debug.Log("사이드 방아쇠를 누름");
+			if(Input.GetAxisRaw(leftIndexTriggerName) >= 0.1f)
+			{
+				return true;
+			}
 		}
+
+		return false;
 	}
 
-	// 검지 트리거 버튼을 눌렀을때 발동될 함수 입니다.
-	// 이것을 상속받아 오버라이드 하세요.
-	protected virtual void OnIndexTriggerButtonDown()
-	{
-		
-	}
 
-	// 쥐는 트리거 버튼을 눌렀을때 발동될 함수 입니다.
-	// 이것을 상속받아 오버라이드 하세요.
-	protected virtual void OnGripTriggerButtonDown()
+	public static bool GetGripButton(Hand hand)
 	{
+		if(hand == Hand.Right)
+		{
+			if(Input.GetAxisRaw(rightGripTriggerName) >= 0.1f)
+			{
+				return true;
+			}
+		}
+		else if(hand == Hand.Left)
+		{
+			if(Input.GetAxisRaw(leftGripTriggerName) >= 0.1f)
+			{
+				return true;
+			}
+		}
 		
+		return false;
 	}
 }

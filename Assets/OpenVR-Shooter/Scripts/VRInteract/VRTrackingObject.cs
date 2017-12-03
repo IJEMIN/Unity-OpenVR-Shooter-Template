@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.XR;
 
 // 현실의 디바이스를 트래킹하는 스크립트
-public class VRControllerTracking : MonoBehaviour {
+public class VRTrackingObject : MonoBehaviour {
 
 	// 트래킹 부위 식별자
 	public XRNode trackingNode;

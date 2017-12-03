@@ -2,7 +2,7 @@
 using UnityEngine;
 
 
-public class VREyeRaycaster : VRInputController
+public class VREyeRaycaster : MonoBehaviour
 {
 	public event Action<RaycastHit> OnRaycasthit;                   // This event is called every frame that the user's gaze is over a collider.
 
@@ -18,16 +18,12 @@ public class VREyeRaycaster : VRInputController
 	private VRInteratable m_LastInteractible;                   //The last interactive item
 
 
-	override protected void Update()
+	void Update()
 	{
-		base.Update();
 		EyeRaycast();
 	}
 
-	override protected void OnIndexTriggerButtonDown()
-	{
-		m_CurrentInteractible.OnTriggerClick();
-	}
+
 	
 	private void EyeRaycast()
 	{
