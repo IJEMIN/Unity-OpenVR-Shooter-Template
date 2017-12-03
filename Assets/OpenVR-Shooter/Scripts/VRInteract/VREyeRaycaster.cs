@@ -21,11 +21,9 @@ public class VREyeRaycaster : MonoBehaviour
 	{
 		EyeRaycast();
 
-		if(VRInput.GetTriggerButton(VRInput.Hand.Right))
+		if(VRInput.GetVRButtonDown(VRInput.Button.LeftIndex))
 		{
-			// Xbox 나 VR 컨트롤러의 'A' 키를 누르면 인터렉터블 오브젝트의 OnClick 이벤트를 발동시킴
-			// TODO: VR 컨트롤러의 트리거 버튼 클릭으로 대체
-			if(m_CurrentInteractible && Input.GetButtonDown("Fire1"))
+			if(m_CurrentInteractible)
 			{
 				m_CurrentInteractible.OnClick();
 			}
