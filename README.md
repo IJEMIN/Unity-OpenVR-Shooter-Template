@@ -11,11 +11,9 @@ Oculus VR 과 HTC Vive (Steam VR) 에 모두 대응합니다.
 상세한 설명 주석 달아놨음.
 이것 기반으로 만듬<br>https://github.com/IJEMIN/Unity-OpenVR-Power-Blade-Example
 
-## 다운로드
 ----------
-최신 버전의 패키지를 여기서 받아주세요.
-[releases](//github.com/IJEMIN/Unity-OpenVR-Shooter-Template/releases)
-저장소는 현재 작성중인 미완성의 코드가 포함되 있을 수 있습니다.
+## 다운로드
+최신 버전의 패키지를 [releases](//github.com/IJEMIN/Unity-OpenVR-Shooter-Template/releases) 에서 받아주세요.<br>저장소에는 현재 작성중인 미완성의 코드가 포함되 있을 수 있습니다.
 
 
 ## 제공하는 기능
