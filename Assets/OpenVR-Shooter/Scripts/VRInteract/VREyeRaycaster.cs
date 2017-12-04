@@ -13,8 +13,8 @@ public class VREyeRaycaster : MonoBehaviour
 	[SerializeField] private bool m_ShowDebugRay;                   // Optionally show the debug ray.	[SerializeField] private float m_RayLength = 500f;              // How far into the scene the ray is cast.
 
 
-	private VRInteratable m_CurrentInteractible;                //The current interactive item
-	private VRInteratable m_LastInteractible;                   //The last interactive item
+	private VRInteractable m_CurrentInteractible;                //The current interactive item
+	private VRInteractable m_LastInteractible;                   //The last interactive item
 
 
 	void Update()
@@ -47,7 +47,7 @@ public class VREyeRaycaster : MonoBehaviour
 		// Do the raycast forweards to see if we hit an interactive item
 		if (Physics.Raycast(ray, out hit, m_RayLength, ~m_ExclusionLayers))
 		{
-			VRInteratable interactible = hit.collider.GetComponent<VRInteratable>(); //attempt to get the VRInteractiveItem on the hit object
+			VRInteractable interactible = hit.collider.GetComponent<VRInteractable>(); //attempt to get the VRInteractiveItem on the hit object
 			m_CurrentInteractible = interactible;
 
 			// If we hit an interactive item and it's not the same as the last interactive item, then call Over

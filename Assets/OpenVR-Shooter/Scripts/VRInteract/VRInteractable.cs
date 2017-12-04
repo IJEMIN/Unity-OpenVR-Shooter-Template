@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class VRInteratable : MonoBehaviour {
+public class VRInteractable : MonoBehaviour {
 
 	[SerializeField]
 	private UnityEvent onClick;

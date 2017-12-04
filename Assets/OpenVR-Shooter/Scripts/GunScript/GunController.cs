@@ -12,7 +12,7 @@ public class GunController : MonoBehaviour {
 
 	void Update()
 	{
-		if(VRInput.GetVRButtonDown(VRInput.Button.RightIndex))
+		if(VRInput.GetVRButton(VRInput.Button.RightIndex))
 		{
 			gun.Fire();
 		}
