@@ -202,6 +202,8 @@ public class Gun : MonoBehaviour
 		// Update 함수에서 if문에 걸려 Shot 발사가 못되게 막음
 		// Reload 함수에서 if문에 걸려 Reload 함수가 중단되게 함
 		state = GUN_STATE.RELOADING;
+		
+		gunAnimator.SetTrigger("Reload");
 
 		// 잠시 장전소요 시간만큼 대기
 		yield return new WaitForSeconds(reloadTime);
