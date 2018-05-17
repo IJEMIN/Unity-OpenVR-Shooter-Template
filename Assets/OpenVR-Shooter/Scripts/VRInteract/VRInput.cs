@@ -4,36 +4,13 @@ using UnityEngine;
 using UnityEngine.XR;
 
 // VR 컨트롤러의 입력 감지를 GetButton 함수로 제공하는 클래스
-public class VRInput: MonoBehaviour {
-
-	private static VRInput m_instance;
-
-	public static VRInput instance
-	{ 
-		get
-		{
-			if (!m_instance)
-			{
-				m_instance = new GameObject("VRInput").AddComponent<VRInput>();
-			}
-
-			return m_instance;
-		}
-	}
-
-	private void Start()
-	{
-		if (m_instance != null && m_instance != this)
-		{
-			Debug.LogError("There are more than one VRInput instance");
-			DestroyImmediate(this);
-		}
-	}
+public static class VRInput
+{
 
 
-	public enum Button {LeftIndex,RightIndex,LeftGrip,RightGrip};
+    public enum Button { LeftIndexTrigger, RightIndexTrigger, LeftGripTrigger, RightGripTrigger };
 
-	/*
+    /*
 	유니티는 OpenVR API 를 내장하고 있다.
 	이것으로 VR 입력을 InputManager 에서 조이스틱 입력으로서 받을 수 있다.
 
@@ -63,187 +40,155 @@ public class VRInput: MonoBehaviour {
 	 */
 
 
-	//왼손
-	// 검지 손가락 트리거에 대응되는 입력 세팅 이름
-	public static string leftIndexTriggerName = "LeftIndexTrigger";
-	// 쥐는 트리거에 대응되는 입력 세팅 이름
-	public static string leftGripTriggerName = "LeftGripTrigger";
-	
-
-	// 오른손
-	// 검지 손가락 트리거에 대응되는 입력 세팅 이름
-	public string rightIndexTriggerName = "RightIndexTrigger";
-	// 쥐는 트리거에 대응되는 입력 세팅 이름
-	public string rightGripTriggerName = "RightGripTrigger";
-	
-
-	private bool m_isLeftIndexTriggerDown;
-	private bool m_isLeftIndexTriggerStay;
+    //왼손
+    // 검지 손가락 트리거에 대응되는 입력 세팅 이름
+    public const string leftIndexTriggerName = "LeftIndexTrigger";
+    // 쥐는 트리거에 대응되는 입력 세팅 이름
+    public const string leftGripTriggerName = "LeftGripTrigger";
 
 
-	private bool m_isRightIndexTriggerDown;
-	private bool m_isRightIndexTriggerStay;
+    // 오른손
+    // 검지 손가락 트리거에 대응되는 입력 세팅 이름
+    public const string rightIndexTriggerName = "RightIndexTrigger";
+    // 쥐는 트리거에 대응되는 입력 세팅 이름
+    public const string rightGripTriggerName = "RightGripTrigger";
 
 
-	private bool m_isLeftGripTriggerDown;
-	private bool m_isLeftGripTriggerStay;
+    // 현재 버튼 상태 파악용 변수들
+    // 직전 프레임에서의 입력 '정도'
+
+    private static float lastLeftIndexTriggerInput;
+    private static float lastRightIndexTriggerInput;
+
+    private static float lastLeftGripTriggerInput;
+    private static float lastRightGripTriggerInput;
 
 
-	private bool m_isRightGripTriggerDown;
-	private bool m_isRightGripTriggerStay;
+
+    public static bool GetButtonUp(Button button)
+    {
+        switch (button)
+        {
+            case Button.LeftIndexTrigger:
+                if (lastLeftIndexTriggerInput >= 1.0f && Input.GetAxisRaw(leftIndexTriggerName) <= 0.9f)
+                {
+                    return true;
+                }
+                break;
+
+            case Button.RightIndexTrigger:
+                if (lastRightIndexTriggerInput >= 1.0f && Input.GetAxisRaw(rightIndexTriggerName) <= 0.9f)
+                {
+                    return true;
+                }
+                break;
+
+            case Button.LeftGripTrigger:
+                if (lastLeftGripTriggerInput >= 1.0f && Input.GetAxisRaw(leftGripTriggerName) <= 0.9f)
+                {
+                    return true;
+                }
+
+                break;
+
+            case Button.RightGripTrigger:
+                if (lastRightGripTriggerInput >= 1.0f && Input.GetAxisRaw(rightGripTriggerName) <= 0.9f)
+                {
+                    return true;
+                }
+
+                break;
+        }
+
+        return false;
+    }
+
+    public static bool GetButtonDown(Button button)
+    {
+        switch (button)
+        {
+            case Button.LeftIndexTrigger:
+                if (lastLeftIndexTriggerInput <= 0f && Input.GetAxisRaw(leftIndexTriggerName) >= 0.2f)
+                {
+                    return true;
+                }
+
+                break;
+
+            case Button.RightIndexTrigger:
+                if (lastRightIndexTriggerInput <= 0f && Input.GetAxisRaw(rightIndexTriggerName) >= 0.2f)
+                {
+                    return true;
+                }
+
+                break;
+
+            case Button.LeftGripTrigger:
+                if (lastLeftGripTriggerInput <= 0f && Input.GetAxisRaw(leftGripTriggerName) >= 0.2f)
+                {
+                    return true;
+                }
+
+                break;
+
+            case Button.RightGripTrigger:
+                if (lastRightGripTriggerInput <= 0f && Input.GetAxisRaw(rightGripTriggerName) >= 0.2f)
+                {
+                    return true;
+                }
+
+                break;
+        }
+        return false;
+    }
+
+    public static bool GetButton(Button button)
+    {
+        switch (button)
+        {
+            case Button.LeftIndexTrigger:
+                if (Input.GetAxisRaw(leftIndexTriggerName) > 0.1f)
+                {
+                    return true;
+                }
+
+                break;
+            case Button.RightIndexTrigger:
+                if (Input.GetAxisRaw(rightIndexTriggerName) > 0.1f)
+                {
+                    return true;
+                }
+
+                break;
+            case Button.LeftGripTrigger:
+                if (Input.GetAxisRaw(leftGripTriggerName) > 0.1f)
+                {
+                    return true;
+                }
+
+                break;
+            case Button.RightGripTrigger:
+                if (Input.GetAxisRaw(rightGripTriggerName) > 0.1f)
+                {
+                    return true;
+                }
+                break;
+        }
+
+        return false;
+    }
 
 
-	void Awake()
-	{
-		m_isRightIndexTriggerDown = false;
-		m_isRightIndexTriggerStay = false;
 
-		m_isRightGripTriggerDown = false;
-		m_isRightGripTriggerStay = false;
+    // Need to call in other Unity Component Update respectly.
+    public static void Update()
+    {
+        lastLeftIndexTriggerInput = Input.GetAxisRaw(leftIndexTriggerName);
 
-		m_isLeftIndexTriggerDown = false;
-		m_isLeftIndexTriggerStay = false;
+        lastRightIndexTriggerInput = Input.GetAxisRaw(rightIndexTriggerName);
 
-		m_isLeftGripTriggerDown = false;
-		m_isLeftGripTriggerStay = false;
-	}
+        lastLeftGripTriggerInput = Input.GetAxisRaw(leftGripTriggerName);
 
-
-	public static bool GetVRButtonDown(Button button)
-	{
-		switch (button)
-		{
-			case Button.LeftIndex:
-				return instance.m_isLeftIndexTriggerDown;
-			
-			case Button.LeftGrip:
-				return instance.m_isLeftGripTriggerDown;
-			
-			case Button.RightIndex:
-				return instance.m_isRightIndexTriggerDown;
-
-			case Button.RightGrip:
-				return instance.m_isRightGripTriggerDown;
-		}
-
-		return false;
-	}
-
-
-	public static bool GetVRButton(Button button)
-	{
-		switch (button)
-		{
-			case Button.LeftIndex:
-				return instance.m_isLeftIndexTriggerStay;
-			
-			case Button.LeftGrip:
-				return instance.m_isLeftGripTriggerStay;
-			
-			case Button.RightIndex:
-				return instance.m_isRightIndexTriggerStay;
-
-			case Button.RightGrip:
-				return instance.m_isRightGripTriggerStay;
-		}
-
-		return false;
-	}
-
-
-	void Update()
-	{
-		UpdateIndexState();
-		UpdateGripState();
-
-	}
-
-	void UpdateIndexState()
-	{
-
-		if(Input.GetAxisRaw(rightIndexTriggerName) >= 0.1f)
-		{
-			if(m_isRightIndexTriggerDown || m_isRightIndexTriggerStay)
-			{
-				m_isRightIndexTriggerDown = false;
-			}
-			else
-			{
-				m_isRightIndexTriggerDown = true;
-			}
-
-			m_isRightIndexTriggerStay = true;
-		}
-		else
-		{
-			m_isRightIndexTriggerDown = false;
-			m_isRightIndexTriggerStay = false;
-		}
-
-
-		if(Input.GetAxisRaw(leftIndexTriggerName) >= 0.1f)
-		{
-			if(m_isLeftIndexTriggerDown || m_isLeftIndexTriggerStay)
-			{
-				m_isLeftIndexTriggerDown = false;
-			}
-			else
-			{
-				m_isLeftIndexTriggerDown = true;
-			}
-			
-			m_isLeftIndexTriggerStay = true;
-		}
-		else
-		{
-			m_isLeftIndexTriggerDown = false;
-			m_isLeftIndexTriggerStay = false;
-		}
-	}
-
-	void UpdateGripState()
-	{
-
-				
-		if(Input.GetAxisRaw(rightGripTriggerName) >= 0.1f)
-		{
-			if(m_isRightGripTriggerDown || m_isRightGripTriggerStay)
-			{
-				m_isRightGripTriggerDown = false;
-			}
-			else
-			{
-				m_isRightGripTriggerDown = true;
-			}
-
-			m_isRightGripTriggerStay = true;
-		}
-		else
-		{
-			m_isRightGripTriggerDown = false;
-			m_isRightGripTriggerStay = false;
-		}
-
-
-		if(Input.GetAxisRaw(leftGripTriggerName) >= 0.1f)
-		{
-			if(m_isLeftGripTriggerDown || m_isLeftGripTriggerStay)
-			{
-				m_isLeftGripTriggerDown = false;
-			}
-			else
-			{
-				m_isLeftGripTriggerDown = true;
-			}
-			
-			m_isLeftGripTriggerStay = true;
-		}
-		else
-		{
-			m_isLeftGripTriggerDown = false;
-			m_isLeftGripTriggerStay = false;
-		}
-	}
-
-
+        lastRightGripTriggerInput = Input.GetAxisRaw(rightGripTriggerName);
+    }
 }

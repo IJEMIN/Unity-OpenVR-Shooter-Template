@@ -12,12 +12,12 @@ public class GunController : MonoBehaviour {
 
 	void Update()
 	{
-		if(VRInput.GetVRButton(VRInput.Button.RightIndex))
+		if(VRInput.GetButton(VRInput.Button.RightIndexTrigger))
 		{
 			gun.Fire();
 		}
 
-		if(VRInput.GetVRButtonDown(VRInput.Button.RightGrip))
+		if(VRInput.GetButtonDown(VRInput.Button.RightGripTrigger))
 		{
 			gun.Reload();
 		}

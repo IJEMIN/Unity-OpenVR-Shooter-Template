@@ -21,7 +21,7 @@ public class VREyeRaycaster : MonoBehaviour
 	{
 		EyeRaycast();
 
-		if(VRInput.GetVRButtonDown(VRInput.Button.LeftIndex))
+		if(VRInput.GetButtonDown(VRInput.Button.LeftIndexTrigger))
 		{
 			if(m_CurrentInteractible)
 			{
